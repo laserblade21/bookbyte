@@ -1,32 +1,4 @@
-#!/bin/sh
-# ----------------------------------------------------------------------------
-# Licensed to the Apache Software Foundation (ASF) under one
-# or more contributor license agreements.  See the NOTICE file
-# distributed with this work for additional information
-# regarding copyright ownership.  The ASF licenses this file
-# to you under the Apache License, Version 2.0 (the
-# "License"); you may not use this file except in compliance
-# with the License.  You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
-# ----------------------------------------------------------------------------
-
-# ----------------------------------------------------------------------------
-# Apache Maven Wrapper startup batch script, version 3.3.2
-#
-# Optional ENV vars
-# -----------------
-#   JAVA_HOME - location of a JDK home dir, required when download maven via java source
-#   MVNW_REPOURL - repo url base for downloading maven distribution
-#   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
-#   MVNW_VERBOSE - true: enable verbose log; debug: trace the mvnw script; others: silence the output
+t; others: silence the output
 # ----------------------------------------------------------------------------
 
 set -euf
@@ -98,15 +70,10 @@ die() {
 }
 
 trim() {
-  # MWRAPPER-139:
-  #   Trims trailing and leading whitespace, carriage returns, tabs, and linefeeds.
-  #   Needed for removing poorly interpreted newline sequences when running in more
-  #   exotic environments such as mingw bash on Windows.
+ 
   printf "%s" "${1}" | tr -d '[:space:]'
 }
 
-# parse distributionUrl and optional distributionSha256Sum, requires .mvn/wrapper/maven-wrapper.properties
-while IFS="=" read -r key value; do
   case "${key-}" in
   distributionUrl) distributionUrl=$(trim "${value-}") ;;
   distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
@@ -133,8 +100,7 @@ maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
 *) MVN_CMD="mvn${0##*/mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
 esac
 
-# apply MVNW_REPOURL and calculate MAVEN_HOME
-# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>
+
 [ -z "${MVNW_REPOURL-}" ] || distributionUrl="$MVNW_REPOURL$_MVNW_REPO_PATTERN${distributionUrl#*"$_MVNW_REPO_PATTERN"}"
 distributionUrlName="${distributionUrl##*/}"
 distributionUrlNameMain="${distributionUrlName%.*}"
